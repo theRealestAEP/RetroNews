@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetroNews // VT220 Terminal</title>
+    <title>RETRO TERMINAL // VT220</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,40 +13,25 @@
             <header class="terminal-header">
                 <div class="header-border top"></div>
                 <div class="header-content">
-                    <span class="blink">█</span> NEWS v1.0 <span class="dim">|</span> VT220 TERMINAL <span class="dim">|</span> <span id="datetime"></span> <span class="blink">█</span>
+                    <span class="blink">█</span> <span id="app-title">RETRO TERMINAL</span> <span class="dim">|</span> VT220 <span class="dim">|</span> <span id="datetime"></span> <span class="blink">█</span>
                 </div>
                 <div class="header-border bottom"></div>
             </header>
             
-            <nav class="feed-selector">
-                <span class="prompt">&gt;</span> SELECT FEED: 
-                <button class="feed-btn active" data-feed="home">HOME</button>
-                <button class="feed-btn" data-feed="world">WORLD</button>
-                <button class="feed-btn" data-feed="us">U.S.</button>
-                <button class="feed-btn" data-feed="technology">TECH</button>
-                <button class="feed-btn" data-feed="science">SCIENCE</button>
-                <button class="feed-btn" data-feed="business">BUSINESS</button>
-                <button class="feed-btn" data-feed="sports">SPORTS</button>
+            <nav id="main-nav" class="main-nav hidden">
+                <span class="prompt">&gt;</span> <span id="nav-label">SELECT MODULE:</span>
+                <div id="nav-buttons"></div>
             </nav>
 
             <div class="terminal-body">
-                <div id="output" class="output">
-                    <div class="boot-sequence">
-                        <p>INITIALIZING RETRONEWS TERMINAL...</p>
-                        <p>LOADING VT220 EMULATION LAYER... <span class="ok">[OK]</span></p>
-                        <p>CONNECTING TO NYT RSS GATEWAY... <span class="ok">[OK]</span></p>
-                        <p>FETCHING NEWS FEED...</p>
-                        <p class="blink">█</p>
-                    </div>
-                </div>
+                <div id="output" class="output"></div>
             </div>
 
             <footer class="terminal-footer">
                 <div class="footer-border top"></div>
-                <div class="footer-content">
-                    <span class="dim">[↑/↓] SCROLL</span> <span class="dim">|</span> 
-                    <span class="dim">[1-7] SELECT FEED</span> <span class="dim">|</span> 
-                    <span class="dim">[R] REFRESH</span> <span class="dim">|</span>
+                <div class="footer-content" id="footer-help">
+                    <span class="dim">[ESC] MAIN MENU</span> <span class="dim">|</span>
+                    <span class="dim">[↑/↓] NAVIGATE</span> <span class="dim">|</span> 
                     <span class="dim">[ENTER] SELECT</span>
                 </div>
                 <div class="footer-border bottom"></div>
@@ -57,4 +42,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-

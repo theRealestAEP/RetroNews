@@ -530,3 +530,557 @@ body {
     animation-play-state: running;
 }
 
+/* ============================================
+   MAIN MENU STYLES
+   ============================================ */
+
+.main-nav {
+    flex-shrink: 0;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--phosphor-dim);
+    margin-bottom: 10px;
+}
+
+.main-nav.hidden {
+    display: none;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px;
+}
+
+.menu-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-title {
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--phosphor-bright);
+    margin-bottom: 10px;
+}
+
+.menu-options {
+    width: 100%;
+    max-width: 500px;
+}
+
+.menu-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border: 1px solid var(--phosphor-dim);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.menu-option:hover {
+    border-color: var(--phosphor);
+    background: rgba(51, 255, 51, 0.05);
+}
+
+.menu-option.selected {
+    border-color: var(--phosphor-bright);
+    background: rgba(51, 255, 51, 0.15);
+    box-shadow: 0 0 20px var(--phosphor-glow);
+}
+
+.menu-option-key {
+    color: var(--phosphor-dim);
+    font-size: 14px;
+}
+
+.menu-option-icon {
+    font-size: 24px;
+    filter: grayscale(100%) brightness(1.5);
+}
+
+.menu-option-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    letter-spacing: 2px;
+}
+
+.menu-option-desc {
+    font-size: 12px;
+    margin-left: auto;
+}
+
+.menu-footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Boot text */
+.boot-text {
+    font-size: 14px;
+}
+
+.boot-text p {
+    margin-bottom: 4px;
+    white-space: pre;
+}
+
+/* ============================================
+   TERMINAL INPUT STYLES
+   ============================================ */
+
+.terminal-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--phosphor);
+    color: var(--phosphor-bright);
+    font-family: inherit;
+    font-size: 20px;
+    padding: 10px 5px;
+    width: 300px;
+    outline: none;
+    text-shadow: inherit;
+}
+
+.terminal-input::placeholder {
+    color: var(--phosphor-dim);
+}
+
+.terminal-input:focus {
+    border-bottom-color: var(--phosphor-bright);
+    box-shadow: 0 2px 10px var(--phosphor-glow);
+}
+
+.input-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.input-prompt {
+    color: var(--phosphor-dim);
+    margin: 2px 0;
+}
+
+/* ============================================
+   WEATHER CHANNEL VHS STYLES
+   ============================================ */
+
+.weather-input-screen,
+.weather-display {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-channel-header {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.weather-logo {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.weather-logo-box {
+    background: var(--phosphor);
+    color: #000;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: none;
+}
+
+.weather-logo-box.accent {
+    background: var(--phosphor-bright);
+}
+
+/* Weather Channel style bar at top */
+.weather-channel-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, 
+        var(--phosphor-dim) 0%, 
+        var(--phosphor-bg) 100%);
+    padding: 10px 20px;
+    border: 2px solid var(--phosphor);
+    margin-bottom: 20px;
+}
+
+.weather-channel-logo {
+    display: flex;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.logo-the, .logo-weather, .logo-channel {
+    background: var(--phosphor);
+    color: #000;
+    padding: 4px 8px;
+    font-size: 12px;
+    text-shadow: none;
+}
+
+.logo-channel {
+    background: var(--phosphor-bright);
+}
+
+.weather-time {
+    font-size: 18px;
+    color: var(--phosphor-bright);
+}
+
+/* Weather main display */
+.weather-main {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    flex: 1;
+}
+
+.weather-left {
+    flex: 1;
+}
+
+.weather-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-location-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--phosphor-dim);
+}
+
+.weather-city {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    letter-spacing: 3px;
+}
+
+.weather-region {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.weather-current {
+    margin-bottom: 25px;
+}
+
+.weather-temp-large {
+    font-size: 72px;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    line-height: 1;
+    text-shadow: 
+        0 0 10px var(--phosphor-glow),
+        0 0 20px var(--phosphor-glow),
+        0 0 40px var(--phosphor-glow);
+}
+
+.weather-condition {
+    font-size: 20px;
+    margin-top: 10px;
+    color: var(--phosphor);
+}
+
+.weather-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.weather-detail-row {
+    display: flex;
+    justify-content: space-between;
+    max-width: 250px;
+    font-size: 14px;
+}
+
+.weather-ascii {
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--phosphor-bright);
+}
+
+/* Weather forecast */
+.weather-forecast {
+    background: rgba(0, 17, 0, 0.5);
+    border: 1px solid var(--phosphor-dim);
+    padding: 15px;
+    margin-top: auto;
+}
+
+.forecast-header {
+    text-align: center;
+    font-size: 16px;
+    color: var(--phosphor-bright);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.forecast-days {
+    display: flex;
+    justify-content: space-around;
+}
+
+.forecast-day {
+    text-align: center;
+    padding: 10px 20px;
+    border: 1px solid var(--phosphor-dim);
+}
+
+.forecast-day-name {
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    margin-bottom: 8px;
+}
+
+.forecast-temps {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.forecast-high {
+    color: var(--phosphor-bright);
+}
+
+.forecast-low {
+    margin-left: 10px;
+}
+
+.forecast-desc {
+    font-size: 11px;
+}
+
+/* Weather crawl at bottom */
+.weather-footer {
+    margin-top: 15px;
+    overflow: hidden;
+    border-top: 1px solid var(--phosphor-dim);
+    padding-top: 10px;
+}
+
+.weather-crawl {
+    white-space: nowrap;
+    animation: crawl 20s linear infinite;
+}
+
+@keyframes crawl {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.crawl-text {
+    display: inline-block;
+    color: var(--phosphor-bright);
+}
+
+/* ============================================
+   STOCK TICKER STYLES
+   ============================================ */
+
+.stock-input-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px;
+}
+
+.stock-header {
+    margin-bottom: 20px;
+}
+
+.stock-logo {
+    font-size: 14px;
+    color: var(--phosphor-bright);
+    text-align: center;
+}
+
+.popular-tickers {
+    margin-top: 30px;
+}
+
+/* Stock display */
+.stock-display {
+    padding: 20px;
+}
+
+.stock-header-bar {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--phosphor);
+    margin-bottom: 20px;
+}
+
+.stock-ticker-large {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    letter-spacing: 3px;
+}
+
+.stock-company-name {
+    font-size: 14px;
+}
+
+.stock-main {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.stock-price-section {
+    flex: 1;
+}
+
+.stock-current-price {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--phosphor-bright);
+    text-shadow: 
+        0 0 10px var(--phosphor-glow),
+        0 0 20px var(--phosphor-glow);
+}
+
+.stock-change {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.stock-change.positive {
+    color: var(--phosphor-bright);
+}
+
+.stock-change.negative {
+    color: #ff5555;
+    text-shadow: 
+        0 0 5px rgba(255, 85, 85, 0.4),
+        0 0 10px rgba(255, 85, 85, 0.4);
+}
+
+.stock-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: right;
+}
+
+.stock-stat {
+    font-size: 14px;
+}
+
+/* Stock chart */
+.stock-chart-section {
+    background: rgba(0, 17, 0, 0.5);
+    border: 1px solid var(--phosphor-dim);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.chart-header {
+    text-align: center;
+    font-size: 16px;
+    color: var(--phosphor-bright);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.stock-chart {
+    font-size: 12px;
+    line-height: 1;
+    color: var(--phosphor);
+    overflow-x: auto;
+}
+
+.chart-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 12px;
+    padding: 0 50px;
+}
+
+.stock-footer {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px dashed var(--phosphor-dim);
+}
+
+.stock-footer p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS FOR NEW MODULES
+   ============================================ */
+
+@media (max-width: 768px) {
+    .weather-main {
+        flex-direction: column;
+    }
+    
+    .weather-right {
+        order: -1;
+        margin-bottom: 20px;
+    }
+    
+    .weather-temp-large {
+        font-size: 48px;
+    }
+    
+    .forecast-days {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .stock-main {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .stock-stats {
+        text-align: left;
+    }
+    
+    .stock-current-price {
+        font-size: 36px;
+    }
+    
+    .menu-option {
+        flex-wrap: wrap;
+    }
+    
+    .menu-option-desc {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .terminal-input {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
