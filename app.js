@@ -671,8 +671,8 @@ function renderStockDisplay(data, ticker) {
     const low = Math.min(...quote.low.filter(l => l !== null));
     const volume = quote.volume.reduce((a, b) => a + (b || 0), 0);
     
-    // Generate ASCII chart
-    const chart = generateAsciiChart(closes, 50, 15);
+    // Generate ASCII chart (wider for better resolution)
+    const chart = generateAsciiChart(closes, 60, 18);
     
     const changeSymbol = isPositive ? '▲' : '▼';
     const changeClass = isPositive ? 'positive' : 'negative';
@@ -728,18 +728,27 @@ function renderStockDisplay(data, ticker) {
 function generateAsciiChart(data, width, height) {
     if (!data || data.length === 0) return 'NO DATA AVAILABLE';
     
-    const min = Math.min(...data);
-    const max = Math.max(...data);
+    // Filter out any remaining nulls/undefined and ensure we have valid data
+    const validData = data.filter(d => d !== null && d !== undefined && !isNaN(d));
+    if (validData.length === 0) return 'NO DATA AVAILABLE';
+    
+    const min = Math.min(...validData);
+    const max = Math.max(...validData);
     const range = max - min || 1;
     
-    // Resample data to fit width
-    const step = Math.max(1, Math.floor(data.length / width));
+    // Resample data using linear interpolation for smoother results
     const samples = [];
-    for (let i = 0; i < data.length; i += step) {
-        samples.push(data[i]);
+    for (let i = 0; i < width; i++) {
+        // Map chart position to data position
+        const dataIndex = (i / (width - 1)) * (validData.length - 1);
+        const lowerIndex = Math.floor(dataIndex);
+        const upperIndex = Math.min(lowerIndex + 1, validData.length - 1);
+        const fraction = dataIndex - lowerIndex;
+        
+        // Linear interpolation between two nearest data points
+        const interpolatedValue = validData[lowerIndex] * (1 - fraction) + validData[upperIndex] * fraction;
+        samples.push(interpolatedValue);
     }
-    while (samples.length < width) samples.push(data[data.length - 1]);
-    samples.length = width;
     
     // Create chart grid
     const chart = [];
@@ -747,16 +756,32 @@ function generateAsciiChart(data, width, height) {
         chart.push(new Array(width).fill(' '));
     }
     
-    // Plot data points
+    // Plot data points and connect them with lines
+    let prevY = null;
     for (let x = 0; x < samples.length; x++) {
         const normalized = (samples[x] - min) / range;
         const y = Math.floor((1 - normalized) * (height - 1));
+        
+        // Draw vertical line connecting to previous point for smoother chart
+        if (prevY !== null) {
+            const minY = Math.min(prevY, y);
+            const maxY = Math.max(prevY, y);
+            for (let connectY = minY; connectY <= maxY; connectY++) {
+                if (chart[connectY][x - 1] === ' ') {
+                    chart[connectY][x - 1] = '│';
+                }
+            }
+        }
+        
+        // Plot the main data point
         chart[y][x] = '█';
         
         // Fill below for area chart effect
         for (let fillY = y + 1; fillY < height; fillY++) {
             chart[fillY][x] = '░';
         }
+        
+        prevY = y;
     }
     
     // Add Y-axis labels
