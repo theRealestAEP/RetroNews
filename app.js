@@ -22,7 +22,8 @@ const state = {
 const MODULES = [
     { id: 'news', name: 'NEWS', icon: '📰', description: 'NYT RSS NEWS FEED' },
     { id: 'weather', name: 'WEATHER', icon: '🌤', description: 'LOCAL WEATHER FORECAST' },
-    { id: 'stocks', name: 'STOCKS', icon: '📈', description: 'STOCK MARKET DATA' }
+    { id: 'stocks', name: 'STOCKS', icon: '📈', description: 'STOCK MARKET DATA' },
+    { id: 'games', name: 'GAMES', icon: '🎮', description: 'TERMINAL GAMES' }
 ];
 
 // API Configurations
@@ -123,6 +124,7 @@ async function showBootSequence() {
         { text: 'LOADING MODULE: NEWS.................... [OK]', delay: 80 },
         { text: 'LOADING MODULE: WEATHER................. [OK]', delay: 80 },
         { text: 'LOADING MODULE: STOCKS.................. [OK]', delay: 80 },
+        { text: 'LOADING MODULE: GAMES................... [OK]', delay: 80 },
         { text: '', delay: 100 },
         { text: 'SYSTEM READY.', delay: 200 },
         { text: '', delay: 100 },
@@ -161,7 +163,7 @@ function showMainMenu() {
     footerHelp.innerHTML = `
         <span class="dim">[↑/↓] NAVIGATE</span> <span class="dim">|</span>
         <span class="dim">[ENTER] SELECT</span> <span class="dim">|</span>
-        <span class="dim">[1-3] QUICK SELECT</span>
+        <span class="dim">[1-4] QUICK SELECT</span>
     `;
     
     output.innerHTML = `
@@ -212,6 +214,9 @@ function selectModule(index) {
             break;
         case 'stocks':
             initStocksModule();
+            break;
+        case 'games':
+            initGamesModule();
             break;
     }
 }
@@ -810,6 +815,196 @@ function formatVolume(vol) {
 }
 
 // ============================================
+// GAMES MODULE
+// ============================================
+
+const GAMES = [
+    { id: 'wopr', name: 'GLOBAL THERMONUCLEAR WAR', description: 'A STRANGE GAME...' }
+];
+
+let gamesMenuIndex = 0;
+
+function initGamesModule() {
+    appTitle.textContent = 'GAMES TERMINAL';
+    mainNav.classList.add('hidden');
+    gamesMenuIndex = 0;
+    
+    footerHelp.innerHTML = `
+        <span class="dim">[ESC] MENU</span> <span class="dim">|</span>
+        <span class="dim">[↑/↓] NAVIGATE</span> <span class="dim">|</span>
+        <span class="dim">[ENTER] PLAY</span>
+    `;
+    
+    showGamesMenu();
+}
+
+function showGamesMenu() {
+    output.innerHTML = `
+        <div class="games-menu">
+            <div class="wopr-header">
+                <pre class="wopr-logo">
+██╗    ██╗ ██████╗ ██████╗ ██████╗ 
+██║    ██║██╔═══██╗██╔══██╗██╔══██╗
+██║ █╗ ██║██║   ██║██████╔╝██████╔╝
+██║███╗██║██║   ██║██╔═══╝ ██╔══██╗
+╚███╔███╔╝╚██████╔╝██║     ██║  ██║
+ ╚══╝╚══╝  ╚═════╝ ╚═╝     ╚═╝  ╚═╝
+                </pre>
+                <p class="wopr-subtitle">WAR OPERATION PLAN RESPONSE</p>
+                <p class="dim">NORAD STRATEGIC DEFENSE COMPUTER</p>
+            </div>
+            <div class="games-list">
+                <p class="games-list-header">═══ AVAILABLE GAMES ═══</p>
+                ${GAMES.map((game, i) => `
+                    <div class="game-option ${i === gamesMenuIndex ? 'selected' : ''}" data-index="${i}">
+                        <span class="game-option-key">[${i + 1}]</span>
+                        <span class="game-option-name">${game.name}</span>
+                        <span class="game-option-desc dim">// ${game.description}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="games-footer">
+                <p class="separator">────────────────────────────────────────────────────</p>
+                <p class="dim">GREETINGS, PROFESSOR FALKEN.</p>
+                <p class="dim blink">SHALL WE PLAY A GAME?</p>
+            </div>
+        </div>
+    `;
+}
+
+function selectGame(index) {
+    const game = GAMES[index];
+    if (!game) return;
+    
+    switch (game.id) {
+        case 'wopr':
+            state.currentModule = 'wopr';
+            initWOPRGame();
+            showWOPRIntro();
+            break;
+    }
+}
+
+function showWOPRIntro() {
+    // Show game intro then start
+    output.innerHTML = `
+        <div class="wopr-intro">
+            <pre class="wopr-logo">
+ ██████╗ ██╗      ██████╗ ██████╗  █████╗ ██╗     
+██╔════╝ ██║     ██╔═══██╗██╔══██╗██╔══██╗██║     
+██║  ███╗██║     ██║   ██║██████╔╝███████║██║     
+██║   ██║██║     ██║   ██║██╔══██╗██╔══██║██║     
+╚██████╔╝███████╗╚██████╔╝██████╔╝██║  ██║███████╗
+ ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+████████╗██╗  ██╗███████╗██████╗ ███╗   ███╗ ██████╗ 
+╚══██╔══╝██║  ██║██╔════╝██╔══██╗████╗ ████║██╔═══██╗
+   ██║   ███████║█████╗  ██████╔╝██╔████╔██║██║   ██║
+   ██║   ██╔══██║██╔══╝  ██╔══██╗██║╚██╔╝██║██║   ██║
+   ██║   ██║  ██║███████╗██║  ██║██║ ╚═╝ ██║╚██████╔╝
+   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝ ╚═════╝ 
+███╗   ██╗██╗   ██╗ ██████╗██╗     ███████╗ █████╗ ██████╗ 
+████╗  ██║██║   ██║██╔════╝██║     ██╔════╝██╔══██╗██╔══██╗
+██╔██╗ ██║██║   ██║██║     ██║     █████╗  ███████║██████╔╝
+██║╚██╗██║██║   ██║██║     ██║     ██╔══╝  ██╔══██║██╔══██╗
+██║ ╚████║╚██████╔╝╚██████╗███████╗███████╗██║  ██║██║  ██║
+╚═╝  ╚═══╝ ╚═════╝  ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+██╗    ██╗ █████╗ ██████╗ 
+██║    ██║██╔══██╗██╔══██╗
+██║ █╗ ██║███████║██████╔╝
+██║███╗██║██╔══██║██╔══██╗
+╚███╔███╔╝██║  ██║██║  ██║
+ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+            </pre>
+            <p class="loading-text">INITIALIZING WOPR STRATEGIC SIMULATION...</p>
+        </div>
+    `;
+    
+    setTimeout(() => {
+        output.innerHTML += '<p class="loading-step">LOADING WORLD MAP DATA............ [OK]</p>';
+        setTimeout(() => {
+            output.innerHTML += '<p class="loading-step">INITIALIZING DEFCON PROTOCOLS..... [OK]</p>';
+            setTimeout(() => {
+                output.innerHTML += '<p class="loading-step">CALIBRATING RADAR SYSTEMS......... [OK]</p>';
+                setTimeout(() => {
+                    output.innerHTML += '<p class="loading-step">ARMING STRATEGIC ASSETS........... [OK]</p>';
+                    setTimeout(() => {
+                        output.innerHTML += `
+                            <p></p>
+                            <p class="wopr-warning">*** WARNING: THIS IS A SIMULATION ***</p>
+                            <p></p>
+                            <p>YOU ARE COMMANDING: UNITED STATES STRATEGIC FORCES</p>
+                            <p>OPPONENT: USSR STRATEGIC FORCES (AI CONTROLLED)</p>
+                            <p></p>
+                            <p>DATE: JANUARY 1, 1983</p>
+                            <p>DEFCON LEVEL: 5 (PEACETIME)</p>
+                            <p></p>
+                            <p class="highlight">PRESS [SPACE] TO BEGIN SIMULATION...</p>
+                        `;
+                        
+                        // Wait for space to start
+                        const startGame = (e) => {
+                            if (e.key === ' ') {
+                                document.removeEventListener('keydown', startGame);
+                                renderWOPRGame();
+                            }
+                        };
+                        document.addEventListener('keydown', startGame);
+                    }, 300);
+                }, 300);
+            }, 300);
+        }, 300);
+    }, 500);
+}
+
+// ============================================
+// GLOBAL THERMONUCLEAR WAR GAME (WOPR)
+// ============================================
+// NOTE: WOPR game code is now modularized in js/games/wopr/
+// - data.js: Game state and constants  
+// - map.js: World map drawing
+// - mechanics.js: Game logic and AI
+// - ui.js: UI rendering
+// - input.js: Keyboard input handling
+// ============================================
+
+// The WOPR object and all game functions are loaded from the modules
+// and are available on the window object.
+
+// Keep only the games menu input handler here
+// (WOPR-specific input is handled by js/games/wopr/input.js)
+
+/* WOPR CODE REMOVED - Now in js/games/wopr/*.js */
+
+
+function handleGamesMenuInput(e) {
+    switch (e.key) {
+        case 'Escape':
+            e.preventDefault();
+            showMainMenu();
+            break;
+        case 'ArrowUp':
+        case 'k':
+            e.preventDefault();
+            gamesMenuIndex = Math.max(0, gamesMenuIndex - 1);
+            showGamesMenu();
+            break;
+        case 'ArrowDown':
+        case 'j':
+            e.preventDefault();
+            gamesMenuIndex = Math.min(GAMES.length - 1, gamesMenuIndex + 1);
+            showGamesMenu();
+            break;
+        case 'Enter':
+        case '1':
+            e.preventDefault();
+            selectGame(gamesMenuIndex);
+            break;
+    }
+}
+
+// handleWOPRInput is now in js/games/wopr/input.js
+
+// ============================================
 // Keyboard Navigation
 // ============================================
 
@@ -821,6 +1016,18 @@ function setupKeyboardNavigation() {
                 e.target.blur();
                 showMainMenu();
             }
+            return;
+        }
+        
+        // Handle WOPR game controls
+        if (state.currentModule === 'wopr' && window.WOPR && window.WOPR.gameActive) {
+            window.handleWOPRInput(e);
+            return;
+        }
+        
+        // Handle games menu
+        if (state.currentModule === 'games') {
+            handleGamesMenuInput(e);
             return;
         }
         
@@ -876,6 +1083,7 @@ function setupKeyboardNavigation() {
             case '1':
             case '2':
             case '3':
+            case '4':
                 if (!state.currentModule) {
                     e.preventDefault();
                     selectModule(parseInt(e.key) - 1);
